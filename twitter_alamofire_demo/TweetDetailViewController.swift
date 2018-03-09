@@ -37,6 +37,18 @@ class TweetDetailViewController: UIViewController {
             date.text = tweet.createdAtString
             numRetweets.text = (String(tweet.retweetCount))
             numFavorited.text = (String(describing:tweet.favoriteCount!))
+            
+            if (tweet.retweeted) {
+                retweetButton.setImage(#imageLiteral(resourceName: "retweet-icon-green"), for: .normal)
+            } else {
+                retweetButton.setImage(#imageLiteral(resourceName: "retweet-icon"), for: .normal)
+            }
+            
+            if (tweet.favorited)! {
+                likeButton.setImage(#imageLiteral(resourceName: "favor-icon-red"), for: .normal)
+            } else {
+                likeButton.setImage(#imageLiteral(resourceName: "favor-icon"), for: .normal)
+            }
         }
         
     }
