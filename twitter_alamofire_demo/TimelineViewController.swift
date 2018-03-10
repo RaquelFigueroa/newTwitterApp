@@ -16,7 +16,7 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var tweetBarButton: UIBarButtonItem!
     
 //    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    var refreshControl: UIRefreshControl!
+//    var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +28,8 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
         
-        refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(TimelineViewController.didPullToRefresh(_:)), for: .valueChanged)
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
         
         fetchTweets()
@@ -39,14 +39,14 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
         APIManager.shared.getHomeTimeLine { (tweets, error) in
             if let tweets = tweets {
                 self.tweets = tweets
-                self.refreshControl.endRefreshing()
+//                self.refreshControl.endRefreshing()
                 self.tableView.reloadData()
             } else if let error = error {
                 print("Error getting home timeline: " + error.localizedDescription)
             }
         }
     }
-    
+
     @objc func didPullToRefresh(_ refreshControl: UIRefreshControl) {
         fetchTweets()
     }
@@ -100,7 +100,20 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func did(post: Tweet) {
-        fetchTweets()
+        self.fetchTweets()
+        
+    }
+    
+    func refreshControlAction(_ refreshControl: UIRefreshControl) {
+        APIManager.shared.updateHomeTimeLine { (tweets, error) in
+            if let tweets = tweets {
+                self.tweets = tweets
+                self.tableView.reloadData()
+            } else if let error = error {
+                print("Error getting home timeline: " + error.localizedDescription)
+            }
+        }
+        refreshControl.endRefreshing()
     }
     
     override func viewWillAppear(_ animated: Bool) {
