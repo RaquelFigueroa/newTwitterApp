@@ -1,6 +1,6 @@
 # Project 6 - *newTwitterApp*
 
-Time spent: **3** hours spent in total
+Time spent: **5** hours spent in total
 
 ## User Stories
 
@@ -19,7 +19,7 @@ The following **stretch** features are implemented:
 - [ ] User can tap the profile image in any tweet to see another user's profile. (1pt)
 - Contains the user header view: picture and tagline.
 - Contains a section with the users basic stats: # tweets, # following, # followers.
-- [ ] After creating a new tweet, a user should be able to view it in the timeline immediately without refetching the timeline from the network. (1pt)
+- [x] After creating a new tweet, a user should be able to view it in the timeline immediately without refetching the timeline from the network. (1pt)
 - [ ] User can reply to any tweet, and replies should be prefixed with the username and the reply_id should be set when posting the tweet. (2pts)
 - [ ] User sees embedded images in tweet if available. (3pts)
 - [ ] Pulling down the profile page should blur and resize the header image. (2pts)
@@ -30,8 +30,8 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. I would like to discuss how to better layout a screen. Embellishing elements to make the app more professional looking.
+2. My peers thoughts while learning about device frameworks.
 
 ## Video Walkthrough
 
@@ -47,7 +47,7 @@ Describe any challenges encountered while building the app.
 
 ## License
 
-Copyright [yyyy] [name of copyright owner]
+Copyright 2018 R.Figueroa
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
