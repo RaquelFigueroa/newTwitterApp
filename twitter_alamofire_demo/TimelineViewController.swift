@@ -29,7 +29,7 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.estimatedRowHeight = 100
         
         refreshControl = UIRefreshControl()
-                refreshControl.addTarget(self, action: #selector(TimelineViewController.didPullToRefresh(_:)), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(TimelineViewController.didPullToRefresh(_:)), for: .valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
         
         fetchTweets()
@@ -90,6 +90,11 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
                 let detailViewController = segue.destination as! TweetDetailViewController
                 detailViewController.tweet = tweet
             }
+        }
+        
+        else if (segue.identifier == "profileViewSegue") {
+            let profileViewController = segue.destination as! ProfileViewController
+
         }
         
     }

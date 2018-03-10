@@ -32,12 +32,11 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         tweetText.isEditable = true
         self.tweetText.layer.borderWidth = 3.0
         self.tweetText.layer.borderColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1).cgColor
-
-//        if let tweet = tweet {
-//            userImage.af_setImage(withURL: tweet.user.image)
-//            userName.text = tweet.user.name
-//            userHandle.text = "@" + tweet.user.screenName!
-//        }
+        
+        userImage.af_setImage(withURL: (User.current?.image)!)
+        userName.text = User.current?.name
+        userHandle.text = "@" + (User.current?.screenName)!
+        
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -51,7 +50,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     
     
     @IBAction func didTapTweet(_ sender: Any) {
-        APIManager.shared.composeTweet(with: "This is my tweet 😀") { (tweet, error) in
+        APIManager.shared.composeTweet(with: tweetText.text) { (tweet, error) in
             if let error = error {
                 print("Error composing Tweet: \(error.localizedDescription)")
             } else if let tweet = tweet {

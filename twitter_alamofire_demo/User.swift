@@ -13,6 +13,12 @@ class User {
     var name: String
     var screenName: String?
     var image: URL
+    var followers: Int?
+    var tweets: Int?
+    var following: Int?
+    var tagline: String?
+
+    
     
     // For user persistance
     var dictionary: [String: Any]?
@@ -25,6 +31,10 @@ class User {
         name = dictionary["name"] as! String
         screenName = dictionary["screen_name"] as? String
         image = URL(string: dictionary["profile_image_url_https"] as! String)!
+        followers = dictionary["followers_count"] as? Int
+        tweets = dictionary["statuses_count"] as? Int
+        following = dictionary["friends_count"] as? Int
+        tagline = dictionary["description"] as? String
     }
     
     static var current: User? {
