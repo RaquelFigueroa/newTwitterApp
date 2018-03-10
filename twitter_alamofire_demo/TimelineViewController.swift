@@ -8,11 +8,12 @@
 
 import UIKit
 
-class TimelineViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+class TimelineViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ComposeViewControllerDelegate {
+
     var tweets: [Tweet] = []
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tweetBarButton: UIBarButtonItem!
     
 //    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var refreshControl: UIRefreshControl!
@@ -77,14 +78,25 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let cell = sender as! UITableViewCell
-        if let indexPath = tableView.indexPath(for: cell) {
-            let tweet = tweets[indexPath.row]
-            let detailViewController = segue.destination as! TweetDetailViewController
-            detailViewController.tweet = tweet
+        if(segue.identifier == "composeTweetSegue"){
+            let composeViewController = segue.destination as! ComposeViewController
+            composeViewController.delegate = self
         }
+        
+        else if (segue.identifier == "tweetDetailSegue") {
+            let cell = sender as! UITableViewCell
+            if let indexPath = tableView.indexPath(for: cell) {
+                let tweet = tweets[indexPath.row]
+                let detailViewController = segue.destination as! TweetDetailViewController
+                detailViewController.tweet = tweet
+            }
+        }
+        
     }
     
+    func did(post: Tweet) {
+        fetchTweets()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
